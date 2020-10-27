@@ -18,8 +18,8 @@ public class PaperboyAuthController {
     }
 
     @PostMapping(path = "/sendMessage/{channel}")
-    public void sendMessage(@PathVariable String channel, @RequestBody String message) {
-        paperboyConnector.sendToChannel(channel, new SimpleMessage(message));
+    public void sendMessage(Principal principal, @PathVariable String channel, @RequestBody String message) {
+        paperboyConnector.sendToChannel(channel, new SimpleMessage(principal.getName(), message));
     }
 
 }
