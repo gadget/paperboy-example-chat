@@ -9,7 +9,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
-public class TestAppConfig {
+public class ChatAppConfig {
 
     @Autowired
     private JedisPool jedisPool;
@@ -23,7 +23,7 @@ public class TestAppConfig {
 
     @Bean
     public PaperboyCallbackHandler paperboyCallbackHandler() {
-        return new TestAppCallbackHandler();
+        return new ChatAppCallbackHandler();
     }
 
     @Bean
