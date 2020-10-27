@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-public class PaperboyAuthController {
+public class PaperboyController {
 
     @Autowired
     private PaperboyConnector paperboyConnector;
