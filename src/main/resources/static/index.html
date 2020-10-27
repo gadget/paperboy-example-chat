@@ -3,8 +3,16 @@
     <title>Title of the document</title>
     <script src="paperboy-client.js"></script>
     <style>
+      .control {
+        padding: .375rem .75rem;
+        font-size: .875rem;
+      }
+      button {
+        width: 75px;
+      }
       textarea {
         resize: none;
+        background-color: azure;
       }
  </style>
 </head>
@@ -39,13 +47,13 @@
   }
 </script>
 <h1>Paperboy Chat Example</h1>
-<textarea id="room" readonly="true" cols="80" rows="20"></textarea>
+<textarea class="control" id="room" readonly="true" cols="80" rows="20"></textarea>
 <p>Channel to join:</p>
-<input id="channel"></input>
-<button id ="joinBtn" onclick="join(document.getElementById('channel').value)">Join</button>
-<button id ="leaveBtn" onclick="leave()" disabled="true">Leave</button>
+<input class="control" id="channel"></input>
+<button class="control" id ="joinBtn" onclick="join(document.getElementById('channel').value)">Join</button>
+<button class="control" id ="leaveBtn" onclick="leave()" disabled="true">Leave</button>
 <p>Your message:</p>
-<input id="msg"></input>
-<button onclick="sendMessage(document.getElementById('msg').value)">Send</button>
+<input class="control" id="msg"></input>
+<button class="control" onclick="sendMessage(document.getElementById('msg').value)">Send</button>
 </body>
 </html>
