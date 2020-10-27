@@ -15,10 +15,8 @@ repositories {
 
 dependencies {
     implementation 'redis.clients:jedis:3.3.0'
-    implementation 'com.auth0:java-jwt:3.11.0'
-    implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'com.paperboy.connector:paperboy-connector-java:1.0-SNAPSHOT'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }

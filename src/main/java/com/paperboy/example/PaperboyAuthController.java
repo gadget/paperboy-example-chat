@@ -16,19 +16,7 @@ public class PaperboyAuthController {
 
     @GetMapping(path = "/paperboyAuth/{channel}")
     public String requestToken(Principal principal, @PathVariable String channel) {
-        // TODO: authentication instad of dummy principal
-        Principal p = new Principal() {
-            @Override
-            public String getName() {
-                return "test-user";
-            }
-        };
-        return paperboyConnector.requestToken(p, channel);
-    }
-
-    @GetMapping(path = "/close/{userId}/{channel}")
-    public void close(@PathVariable String userId, @PathVariable String channel) {
-        paperboyConnector.closeSubscription(userId, channel);
+        return paperboyConnector.requestToken(principal, channel);
     }
 
 }
