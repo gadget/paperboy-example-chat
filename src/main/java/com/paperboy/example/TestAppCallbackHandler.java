@@ -7,7 +7,7 @@ public class TestAppCallbackHandler implements PaperboyCallbackHandler {
 
     @Override
     public void onSubscription(MessageSender msgSender, String userId, String channel) {
-        msgSender.sendToUser(userId, new SimpleMessage("system", String.format("Welcome user '%s' to channel '%s'!", userId, channel)));
+        msgSender.sendToChannel(channel, new SimpleMessage("system", String.format("User '%s' joined.", userId)));
     }
 
     @Override
