@@ -2,17 +2,34 @@
 <head>
     <title>Title of the document</title>
     <script src="paperboy-client.js"></script>
+    <style>
+      textarea {
+        resize: none;
+      }
+ </style>
 </head>
 
 <body>
 <script>
-  new PaperboyClient('http://localhost:8080/paperboyAuth/', 'ws://localhost:3000', 'testChannel', function msgHandler(msg) {
-      console.log('incoming msg: ' + msg.userId + '-' + msg.channel + '-' + msg.payload);
-      //eval(o.payload);
-    }).subscribe();
-</script>
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
-</body>
+  var channel = 'testChannel';
+  var paperboyClient = new PaperboyClient('http://localhost:8080/paperboyAuth/', 'ws://localhost:3000', channel, function msgHandler(msg) {
+    console.log('incoming msg: ' + msg.userId + '-' + msg.channel + '-' + msg.payload);
+    //eval(o.payload);
+    document.getElementById('room').append(msg.payload.message + '\n');
+  });
+  paperboyClient.subscribe();
 
+  function sendMessage(msg) {
+    const http = new XMLHttpRequest();
+    http.open('POST', 'http://localhost:8080/sendMessage/' + channel);
+    http.setRequestHeader('Content-Type', 'application/text');
+    http.send(msg);
+  }
+</script>
+<h1>Paperboy Chat Example</h1>
+<textarea id="room" readonly="true" cols="80" rows="20"></textarea>
+<p>Your message:</p>
+<input id="msg"></input>
+<button onclick="sendMessage(document.getElementById('msg').value)">Send</button>
+</body>
 </html>
