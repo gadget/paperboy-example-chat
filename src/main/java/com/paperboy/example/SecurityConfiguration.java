@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -23,10 +25,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        BasicAuthenticationEntryPoint authEntryPoint = new BasicAuthenticationEntryPoint();
+        authEntryPoint.setRealmName("paperboy-example-chat");
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic();
+                .httpBasic().authenticationEntryPoint(authEntryPoint)
+                .and()
+                .csrf().disable();
     }
 
     @Bean
