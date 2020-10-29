@@ -24,7 +24,9 @@
   function join(channel) {
     paperboyClient = new PaperboyClient('http://localhost:8080/paperboyAuth/', 'ws://localhost:3000', channel, function msgHandler(msg) {
       //eval(o.payload);
-      document.getElementById('room').append(msg.payload.source + ': ' + msg.payload.message + '\n');
+      var room = document.getElementById('room');
+      room.append(msg.payload.source + ': ' + msg.payload.message + '\n');
+      room.scrollTop = room.scrollHeight;
     });
     paperboyClient.subscribe();
     document.getElementById('channel').disabled = true;
