@@ -19,23 +19,21 @@
 
 <body>
 <script>
-  var paperboyClient;
+  var paperboyClient = new PaperboyClient('http://localhost:8080/paperboyAuth/', 'ws://localhost:3000');
 
   function join(channel) {
-    paperboyClient = new PaperboyClient('http://localhost:8080/paperboyAuth/', 'ws://localhost:3000', channel, function msgHandler(msg) {
-      //eval(o.payload);
+    paperboyClient.subscribe(channel, function msgHandler(msg) {
       var room = document.getElementById('room');
       room.append(msg.payload.source + ': ' + msg.payload.message + '\n');
       room.scrollTop = room.scrollHeight;
     });
-    paperboyClient.subscribe();
     document.getElementById('channel').disabled = true;
     document.getElementById('joinBtn').disabled = true;
     document.getElementById('leaveBtn').disabled = false;
   }
 
   function leave() {
-    paperboyClient.unsubscribe();
+    paperboyClient.unsubscribe(document.getElementById('channel').value);
     document.getElementById('channel').disabled = false;
     document.getElementById('joinBtn').disabled = false;
     document.getElementById('leaveBtn').disabled = true;
