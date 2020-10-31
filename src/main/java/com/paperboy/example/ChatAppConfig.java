@@ -2,6 +2,7 @@ package com.paperboy.example;
 
 import com.paperboy.connector.PaperboyCallbackHandler;
 import com.paperboy.connector.PaperboyConnector;
+import com.paperboy.connector.RedisBackend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +29,8 @@ public class ChatAppConfig {
 
     @Bean
     public PaperboyConnector paperboyConnector() {
-        PaperboyConnector connector = new PaperboyConnector(jedisPool, callbackHandler);
-        connector.startListening();
+        PaperboyConnector connector = new PaperboyConnector(new RedisBackend(jedisPool), callbackHandler);
+        connector.init();
         return connector;
     }
 }
