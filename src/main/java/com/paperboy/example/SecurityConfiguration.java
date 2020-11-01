@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 @Configuration
@@ -21,7 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user1").password(passwordEncoder().encode("user1")).authorities("ROLE_USER")
                 .and()
-                .withUser("user2").password(passwordEncoder().encode("user2")).authorities("ROLE_USER");
+                .withUser("user2").password(passwordEncoder().encode("user2")).authorities("ROLE_USER")
+                .and()
+                .withUser("user3").password(passwordEncoder().encode("user3")).authorities("ROLE_USER");
     }
 
     @Override
@@ -40,4 +41,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
