@@ -1,6 +1,5 @@
 package com.paperboy.example;
 
-import com.paperboy.connector.EmbeddedBackend;
 import com.paperboy.connector.PaperboyConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -28,7 +27,7 @@ public class PaperboyController {
     }
 
     @PostMapping(path = "/messageCallback/{topic}")
-    public void callBack(Principal principal, @PathVariable String topic, @RequestBody String message) {
-        paperboyConnector.messageCallbackForEmbeddedBackend(topic, message);
+    public void callBack(Principal principal, @PathVariable String topic, @RequestBody String message, @RequestHeader("PaperboyEmbeddedBackendToken") String embeddedBackendToken) {
+        paperboyConnector.messageCallbackForEmbeddedBackend(topic, message, embeddedBackendToken);
     }
 }

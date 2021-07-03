@@ -22,7 +22,7 @@ public class ChatAppConfig {
 
     @Bean
     public EmbeddedBackend embeddedBackend() {
-        return new EmbeddedBackend();
+        return new EmbeddedBackend("secretToken");
     }
 
     @Bean
