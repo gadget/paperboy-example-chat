@@ -30,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         BasicAuthenticationEntryPoint authEntryPoint = new BasicAuthenticationEntryPoint();
         authEntryPoint.setRealmName("paperboy-example-chat");
         http.authorizeRequests()
+                .antMatchers("/messageCallback/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic().authenticationEntryPoint(authEntryPoint)

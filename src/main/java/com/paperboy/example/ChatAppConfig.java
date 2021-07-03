@@ -1,26 +1,19 @@
 package com.paperboy.example;
 
+import com.paperboy.connector.EmbeddedBackend;
 import com.paperboy.connector.PaperboyCallbackHandler;
 import com.paperboy.connector.PaperboyConnector;
-import com.paperboy.connector.RedisBackend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 public class ChatAppConfig {
 
     @Autowired
-    private JedisPool jedisPool;
-    @Autowired
     private PaperboyCallbackHandler callbackHandler;
-
-    @Bean
-    public JedisPool jedisPool() {
-        return new JedisPool(new JedisPoolConfig(), "localhost");
-    }
+    @Autowired
+    private EmbeddedBackend embeddedBackend;
 
     @Bean
     public PaperboyCallbackHandler paperboyCallbackHandler() {
@@ -28,8 +21,13 @@ public class ChatAppConfig {
     }
 
     @Bean
+    public EmbeddedBackend embeddedBackend() {
+        return new EmbeddedBackend();
+    }
+
+    @Bean
     public PaperboyConnector paperboyConnector() {
-        PaperboyConnector connector = new PaperboyConnector(new RedisBackend(jedisPool), callbackHandler);
+        PaperboyConnector connector = new PaperboyConnector(embeddedBackend, callbackHandler);
         connector.init();
         return connector;
     }

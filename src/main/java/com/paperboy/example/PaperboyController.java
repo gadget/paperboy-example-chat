@@ -1,5 +1,6 @@
 package com.paperboy.example;
 
+import com.paperboy.connector.EmbeddedBackend;
 import com.paperboy.connector.PaperboyConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -12,6 +13,8 @@ public class PaperboyController {
 
     @Autowired
     private PaperboyConnector paperboyConnector;
+    @Autowired
+    private EmbeddedBackend embeddedBackend;
 
     @Secured("ROLE_USER")
     @GetMapping(path = "/paperboyAuth/{channel}")
@@ -26,4 +29,8 @@ public class PaperboyController {
         paperboyConnector.sendToChannel(channel, new ChatMessage(principal.getName(), message));
     }
 
+    @PostMapping(path = "/messageCallback/{topic}")
+    public void callBack(Principal principal, @PathVariable String topic, @RequestBody String message) {
+        embeddedBackend.messageCallback(topic, message);
+    }
 }
