@@ -13,8 +13,6 @@ public class PaperboyController {
 
     @Autowired
     private PaperboyConnector paperboyConnector;
-    @Autowired
-    private EmbeddedBackend embeddedBackend;
 
     @Secured("ROLE_USER")
     @GetMapping(path = "/paperboyAuth/{channel}")
@@ -31,6 +29,6 @@ public class PaperboyController {
 
     @PostMapping(path = "/messageCallback/{topic}")
     public void callBack(Principal principal, @PathVariable String topic, @RequestBody String message) {
-        embeddedBackend.messageCallback(topic, message);
+        paperboyConnector.messageCallbackForEmbeddedBackend(topic, message);
     }
 }
