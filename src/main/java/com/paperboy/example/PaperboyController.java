@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PreDestroy;
 import java.security.Principal;
 
 @RestController
@@ -29,5 +30,10 @@ public class PaperboyController {
     @PostMapping(path = "/messageCallback/{topic}")
     public void callBack(Principal principal, @PathVariable String topic, @RequestBody String message, @RequestHeader("PaperboyEmbeddedBackendToken") String embeddedBackendToken) {
         paperboyConnector.messageCallbackForEmbeddedBackend(topic, message, embeddedBackendToken);
+    }
+
+    @PreDestroy
+    public void destroy() {
+        paperboyConnector.close();
     }
 }
